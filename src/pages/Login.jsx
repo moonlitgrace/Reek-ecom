@@ -65,7 +65,7 @@ const Login = () => {
                     </button></p>
 
                     <div className="guest mt-5">
-                        <button onClick={handleGuestClick} className='mt-1 bg-stone-500 hover:bg-stone-600 duration-100 text-white p-3 w-full rounded font-semibold flex items-center justify-center gap-3'>
+                        <button disabled={guestText === 'Creating...'} onClick={handleGuestClick} className='mt-1 bg-stone-500 hover:bg-stone-600 duration-100 text-white p-3 w-full rounded font-semibold flex items-center justify-center gap-3'>
                             { guestText }
                         </button>
                     </div>
