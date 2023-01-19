@@ -6,12 +6,14 @@ import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { Snackbar, Alert } from '@mui/material'
+import { NoAccounts } from '@mui/icons-material'
 
 const Login = () => {
 
-    const { loginUser, snackbar, setSnackbar } = useContext(AuthContext)
+    const { loginUser, snackbar, setSnackbar, requestGuestUser } = useContext(AuthContext)
 
     const [passType, setPassType] = useState('password')
+    const [guestText, setGuestText] = useState('CONTINUE AS GUEST')
 
     const handleTogglePass = () => {
         if (passType === 'password') {
@@ -19,6 +21,11 @@ const Login = () => {
         } else {
             setPassType('password')
         }
+    }
+
+    const handleGuestClick = () => {
+        setGuestText('Creating...')
+        requestGuestUser()
     }
 
     return (
@@ -56,6 +63,12 @@ const Login = () => {
                     <p className='text-stone-500 mt-3'>Don't have an account ? <button className='text-stone-800'>
                         <Link to='/register'>Register now</Link>
                     </button></p>
+
+                    <div className="guest mt-5">
+                        <button onClick={handleGuestClick} className='mt-1 bg-stone-500 hover:bg-stone-600 duration-100 text-white p-3 w-full rounded font-semibold flex items-center justify-center gap-3'>
+                            { guestText }
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -15,6 +15,9 @@ export const AuthProvider = ({ children }) => {
     const [userData, setUserData] = useState({})
     const [address, setAddress] = useState({})
 
+    const [guestEmail, setGuestEmail] = useState('')
+    const [guestPass, setGuestPass] = useState('')
+
     const [snackbar, setSnackbar] = useState({ open: false, text: '' })
 
     const navigate = useNavigate()
@@ -44,6 +47,38 @@ export const AuthProvider = ({ children }) => {
         }
         else if (response.status === 401) {
             setSnackbar({ open: true, text: data.detail })
+        }
+    }
+
+    const requestGuestUser = async () => {
+        let url = `${BackendUrl}/api/guestuser/`
+
+        const response = await fetch(url)
+        const data = await response.json()
+
+        if (response.status === 200) {
+
+            const login_url = `${BackendUrl}/api/token/`
+            const login_response = await fetch(login_url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'email': data.email,
+                    'password': data.password
+                })
+            })
+            const login_data = await login_response.json()
+            setTokens(login_data)
+            console.log('Tokens', login_data, 'Reponse', login_response)
+            if (login_response.status === 200) {
+                setUser(jwt_decode(login_data.access))
+                setTokens(login_data)
+                localStorage.setItem('jwtTokens', JSON.stringify(login_data))
+                navigate('/')
+            }
+
         }
     }
 
@@ -90,7 +125,7 @@ export const AuthProvider = ({ children }) => {
             setUser(jwt_decode(data.access))
             setTokens(data)
             localStorage.setItem('jwtTokens', JSON.stringify(data))
-        } else if(response.status === 401){
+        } else if (response.status === 401) {
             logoutUser()
         }
 
@@ -111,8 +146,8 @@ export const AuthProvider = ({ children }) => {
         })
         const data = await response.json()
         setUserData(data)
-        
-        if(loading){
+
+        if (loading) {
             setLoading(false)
         }
     }
@@ -128,11 +163,11 @@ export const AuthProvider = ({ children }) => {
             }
         })
         const data = await response.json()
-        if(response.status === 200){
+        if (response.status === 200) {
             setAddress(data)
         }
 
-        if(loading){
+        if (loading) {
             setLoading(false)
         }
     }
@@ -147,7 +182,8 @@ export const AuthProvider = ({ children }) => {
 
         getUser: getUser,
         userData: userData,
-        
+        requestGuestUser: requestGuestUser,
+
         user: user,
         tokens: tokens,
 
@@ -156,12 +192,12 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if(loading){
+        if (loading) {
             updateTokens()
         }
         const fourMinutes = 1000 * 60 * 4
         const interval = setInterval(() => {
-            if(tokens){
+            if (tokens) {
                 updateTokens()
             }
         }, fourMinutes)
@@ -169,7 +205,7 @@ export const AuthProvider = ({ children }) => {
     }, [loading, tokens])
 
     useEffect(() => {
-        if(loading){
+        if (loading) {
             getUser()
         }
     })

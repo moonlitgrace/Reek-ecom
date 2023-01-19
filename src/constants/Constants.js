@@ -1,1 +1,1 @@
-export const BackendUrl = `https://reek-ecom-backend.onrender.com`
+export const BackendUrl = `http://127.0.0.1:8000`
