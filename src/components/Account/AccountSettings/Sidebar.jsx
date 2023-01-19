@@ -23,10 +23,10 @@ export const Sidebar = ({ activeTab, setActiveTab }) => {
                             <Edit fontSize='small' />
                             Edit Profile
                         </button>
-                        <button className='hover:bg-stone-600 duration-100 w-full text-start p-3 flex items-center gap-2'>
+                        <a href='https://github.com/suneethsunx/reek-ecom-frontend' target='_blank' className='hover:bg-stone-600 duration-100 w-full text-start p-3 flex items-center gap-2'>
                             <GitHub fontSize='small' />
                             Github
-                        </button>
+                        </a>
                         <button onClick={logoutUser} className='hover:bg-stone-600 duration-100 w-full text-start p-3 flex items-center gap-2'>
                             <Logout fontSize='small' />
                             Logout
