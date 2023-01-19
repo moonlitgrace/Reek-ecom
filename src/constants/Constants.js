@@ -1,0 +1,1 @@
+export const BackendUrl = `https://reek-ecom-backend.onrender.com`

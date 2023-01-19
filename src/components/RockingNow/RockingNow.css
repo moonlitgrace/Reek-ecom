@@ -1,0 +1,18 @@
+/* Price Range */
+input[type="range"]::-webkit-slider-thumb {
+    pointer-events: auto;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    background: #57534E;
+    /* @apply bg-stone-600; */
+
+    /* @apply w-2 h-6 appearance-none pointer-events-auto; */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

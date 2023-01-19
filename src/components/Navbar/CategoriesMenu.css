@@ -1,0 +1,6 @@
+.cats-menu{
+    position: absolute;
+    left: 11.5%;
+    top: 115%;
+    z-index: 999;
+}
